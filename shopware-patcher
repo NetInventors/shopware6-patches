@@ -1,0 +1,92 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Composer\Console\Input\InputArgument;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\SingleCommandApplication;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
+
+(new SingleCommandApplication())
+    ->setName('Shopware 6 Patcher application')
+    ->addArgument(name: 'shopware', mode: InputArgument::REQUIRED, description: 'The current Shopware 6 version')
+    ->addOption(
+        name: 'path',
+        mode: InputOption::VALUE_OPTIONAL,
+        description: 'Path to the Shopware 6 installation',
+        default: getcwd(),
+    )
+    ->addOption(
+        name: 'vendor',
+        mode: InputOption::VALUE_OPTIONAL,
+        description: 'The vendor directory.',
+        default: 'vendor',
+    )
+    ->setCode(static function (InputInterface $input, OutputInterface $output) {
+        $version = 'v' . ltrim((string) $input->getArgument('shopware'), 'v');
+
+        if (!preg_match('/v6(.\d+){3}/', $version)) {
+            $output->write('Illegal version format.');
+
+            return Command::FAILURE;
+        }
+
+        $finder = new Finder();
+        $files  = $finder
+            ->in(Path::join(__DIR__, 'patches/*/*' , $version))
+            ->name('*.patch')
+            ->files()
+        ;
+
+        $path   = (string) $input->getOption('path');
+        $vendor = (string) $input->getOption('vendor');
+
+        foreach ($files as $file) {
+            $relativePath = Path::makeRelative($file->getPathname(), Path::join(__DIR__, 'patches'));
+            $package      = substr($relativePath, 0, strpos($relativePath, $version) - 1);
+            $patchFile    = $file->getPathname();
+            $origFile     = Path::makeAbsolute(
+                Path::join($path, $vendor, $package, substr($file->getRelativePathname(), 0, -6)), getcwd()
+            );
+
+            $process = new Process([ 'patch', '-R', '--dry-run', "-i$patchFile", $origFile ]);
+            $process->run();
+
+            if ($process->isSuccessful()) {
+                $output->writeln(sprintf(
+                    'Patch "%s" is already applied, skipping.',
+                    $file->getRelativePathname(),
+                ));
+
+                continue;
+            }
+
+            $process = new Process([ 'patch', "-i$patchFile", $origFile ]);
+            $process->run();
+
+            if ($process->isSuccessful()) {
+                $output->writeln(sprintf(
+                    'Patch "%s" was successfull applied.',
+                    $file->getRelativePathname(),
+                ));
+
+                continue;
+            }
+
+            $output->writeln(sprintf(
+                'Apply patch "%s" failed due to the following error: "%s"',
+                $file->getRelativePathname(),
+                $process->getErrorOutput() ?: $process->getExitCodeText()
+            ));
+        }
+
+        return Command::SUCCESS;
+    })
+    ->run()
+;
