@@ -1,0 +1,15 @@
+--- Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.vue3.js.orig
++++ Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.vue3.js
+@@ -24,6 +24,12 @@
+                 },
+                 sync() {
+                     return true;
++                },
++            };
++        });
++        Shopware.Service().register('cacheApiService', () => {
++            return {
++                indexProducts() {
+                 },
+             };
+         });
