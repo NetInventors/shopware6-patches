@@ -13,7 +13,7 @@
 +
 +        const retryWithDelay = async (
 +            innerFn,
-+            retries = 3,
++            retries = 9999,
 +            interval = 5000,
 +        ) => {
 +            try {
