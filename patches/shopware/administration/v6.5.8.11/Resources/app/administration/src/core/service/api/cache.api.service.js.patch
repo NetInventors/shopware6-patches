@@ -1,0 +1,13 @@
+--- Resources/app/administration/src/core/service/api/cache.api.service.js.orig
++++ Resources/app/administration/src/core/service/api/cache.api.service.js
+@@ -16,6 +16,10 @@
+     index(skip = []) {
+         const headers = this.getHeaders();
+         return this.httpClient.post('/_action/index', { skip }, { headers });
++    }
++    indexProducts(ids, skip) {
++        const headers = this.getHeaders();
++        return this.httpClient.post('/_action/index-products', { skip, ids: ids }, { headers });
+     }
+
+     clear() {

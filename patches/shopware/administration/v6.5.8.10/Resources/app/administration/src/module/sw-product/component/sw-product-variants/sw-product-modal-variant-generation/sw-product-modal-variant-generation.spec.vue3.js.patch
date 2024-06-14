@@ -1,0 +1,11 @@
+--- Resources/app/administration/src/module/sw-product/component/sw-product-variants/sw-product-modal-variant-generation/sw-product-modal-variant-generation.spec.vue3.js.orig
++++ Resources/app/administration/src/module/sw-product/component/sw-product-variants/sw-product-modal-variant-generation/sw-product-modal-variant-generation.spec.vue3.js
+@@ -221,7 +221,7 @@
+                     return {};
+                 },
+                 sync() {
+-                    return Promise.resolve();
++                    return Promise.resolve({ data: {} });
+                 },
+             };
+         });

@@ -1,0 +1,23 @@
+--- Resources/app/administration/src/module/sw-bulk-edit/service/handler/bulk-edit-order.handler.js.orig
++++ Resources/app/administration/src/module/sw-bulk-edit/service/handler/bulk-edit-order.handler.js
+@@ -1,4 +1,5 @@
+ import BulkEditBaseHandler from './bulk-edit-base.handler';
++import RetryHelper from '../../../../core/helper/retry.helper';
+
+ const { Criteria } = Shopware.Data;
+ const { types } = Shopware.Utils;
+@@ -85,9 +86,11 @@
+             return Promise.resolve({ data: [] });
+         }
+
+-        return this.syncService.sync(syncPayload, {}, {
+-            'single-operation': 1,
+-            'sw-language-id': Shopware.Context.api.languageId,
++        return RetryHelper.retry(() => {
++            return this.syncService.sync(syncPayload, {}, {
++                'single-operation': 1,
++                'sw-language-id': Shopware.Context.api.languageId,
++            });
+         });
+     }
+
