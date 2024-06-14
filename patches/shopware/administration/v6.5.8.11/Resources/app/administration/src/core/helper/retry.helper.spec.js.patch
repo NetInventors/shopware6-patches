@@ -1,5 +1,5 @@
---- Resources/app/administration/src/core/helper/retry.helper.spec.vue3.js.orig
-+++ Resources/app/administration/src/core/helper/retry.helper.spec.vue3.js
+--- Resources/app/administration/src/core/helper/retry.helper.spec.js.orig
++++ Resources/app/administration/src/core/helper/retry.helper.spec.js
 @@ -0,0 +1,20 @@
 +/**
 + * @package admin

@@ -1,5 +1,5 @@
---- Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.vue3.js.orig
-+++ Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.vue3.js
+--- Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.js.orig
++++ Resources/app/administration/src/module/sw-product/helper/sw-products-variants-generator.spec.js
 @@ -24,6 +24,12 @@
                  },
                  sync() {
