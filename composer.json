@@ -1,9 +1,12 @@
 {
   "name": "netinventors/shopware6-patches",
+  "description": "Shopware 6 patcher fixing some annoying bugs",
+  "license": "MPL-2.0",
   "authors": [
     {
       "name": "Net Inventors GmbH",
-      "email": "info@netinventors.de"
+      "email": "info@netinventors.de",
+      "role": "Manufacturer"
     }
   ],
   "require": {

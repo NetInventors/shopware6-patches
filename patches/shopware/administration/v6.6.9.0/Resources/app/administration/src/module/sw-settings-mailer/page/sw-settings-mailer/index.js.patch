@@ -1,0 +1,19 @@
+--- Resources/app/administration/src/module/sw-settings-mailer/page/sw-settings-mailer/index.js.orig
++++ Resources/app/administration/src/module/sw-settings-mailer/page/sw-settings-mailer/index.js
+@@ -14,6 +14,7 @@
+     'core.mailerSettings.senderAddress': null,
+     'core.mailerSettings.deliveryAddress': null,
+     'core.mailerSettings.disableDelivery': false,
++    'core.mailerSettings.sendMailOptions': '-t -i',
+ };
+
+ // eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
+@@ -121,6 +122,8 @@
+                 this.mailerSettings = {
+                     ...defaultMailerSettings,
+                     'core.mailerSettings.emailAgent': 'local',
++                     'core.mailerSettings.disableDelivery': this.mailerSettings['core.mailerSettings.disableDelivery'],
++                     'core.mailerSettings.sendMailOptions': this.mailerSettings['core.mailerSettings.sendMailOptions'],
+                 };
+             }
+

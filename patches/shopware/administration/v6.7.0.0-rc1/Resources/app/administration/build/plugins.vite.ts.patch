@@ -1,5 +1,5 @@
---- Resources/app/administration/build/plugins.vite.ts.patch.orig
-+++ Resources/app/administration/build/plugins.vite.ts.patch
+--- Resources/app/administration/build/plugins.vite.ts.orig
++++ Resources/app/administration/build/plugins.vite.ts
 @@ -219,7 +219,7 @@
                  // For plugins
                  server = await createServer({
