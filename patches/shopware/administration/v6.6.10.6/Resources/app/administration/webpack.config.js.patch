@@ -1,0 +1,11 @@
+--- Resources/app/administration/webpack.config.js.orig
++++ Resources/app/administration/webpack.config.js
+@@ -583,7 +583,7 @@
+                     new CleanWebpackPlugin({
+                         cleanOnceBeforeBuildPatterns: [
+                             '!**/*',
+-                            'static/**/*',
++                            'administration/**/*',
+                         ]
+                     }),
+                 ]
