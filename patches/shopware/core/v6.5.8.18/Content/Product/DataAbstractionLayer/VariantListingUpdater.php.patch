@@ -1,4 +1,4 @@
---- Content/Product/DataAbstractionLayer/VariantListingUpdater.php
+--- Content/Product/DataAbstractionLayer/VariantListingUpdater.php.orig
 +++ Content/Product/DataAbstractionLayer/VariantListingUpdater.php
 @@ -90,6 +90,7 @@
                  $query->innerJoin('root', 'product_option', $mappingAlias, $mappingAlias . '.product_id IS NOT NULL');

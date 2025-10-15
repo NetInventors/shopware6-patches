@@ -1,13 +1,13 @@
---- Framework/Adapter/Cache/Http/CacheStore.php
+--- Framework/Adapter/Cache/Http/CacheStore.php.orig
 +++ Framework/Adapter/Cache/Http/CacheStore.php
 @@ -86,6 +86,10 @@
              return $key;
          }
- 
+
 +        if (!$this->stateValidator->isValid($request, $response)) {
 +            return $key;
 +        }
 +
          $tags = $this->tracer->get('all');
- 
+
          $tags = array_filter($tags, static function (string $tag): bool {
