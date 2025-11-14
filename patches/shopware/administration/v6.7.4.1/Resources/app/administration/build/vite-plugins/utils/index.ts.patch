@@ -1,0 +1,11 @@
+--- Resources/app/administration/build/vite-plugins/utils/index.ts.orig
++++ Resources/app/administration/build/vite-plugins/utils/index.ts
+@@ -232,7 +232,7 @@
+ export async function findAvailablePorts(startPort = 5173, requiredPorts = 1): Promise<number[]> {
+     const ports = [];
+     let currentPort = startPort;
+-    const maxPort = 6333;
++    const maxPort = 65514;
+
+     while (ports.length < requiredPorts) {
+         if (currentPort > maxPort) {
