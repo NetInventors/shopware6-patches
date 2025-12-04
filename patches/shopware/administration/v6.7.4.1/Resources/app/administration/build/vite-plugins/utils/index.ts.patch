@@ -5,7 +5,7 @@
      const ports = [];
      let currentPort = startPort;
 -    const maxPort = 6333;
-+    const maxPort = 65514;
++    const maxPort = 65535;
 
      while (ports.length < requiredPorts) {
          if (currentPort > maxPort) {
